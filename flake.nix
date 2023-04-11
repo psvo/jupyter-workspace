@@ -11,7 +11,7 @@
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
         python = pkgs.python3;
-        jdk = pkgs.jdk17;
+        jdk = pkgs.jdk17_headless;
         risePkg = pkgs.callPackage ./rise.nix {inherit python;};
         javaKernel = pkgs.callPackage ./java-kernel.nix {
           inherit python;
