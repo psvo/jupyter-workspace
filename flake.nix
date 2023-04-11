@@ -36,7 +36,7 @@
           ];
           text = ''
             if [[ $# -eq 0 ]]; then
-              exec jupyter notebook
+              exec jupyter notebook --no-browser
             else
               exec jupyter "$@"
             fi
