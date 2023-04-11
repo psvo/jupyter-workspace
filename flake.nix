@@ -46,15 +46,16 @@
           };
       in rec {
         formatter = pkgs.alejandra;
-        packages.java-kernel = javaKernel;
-        packages.jupyter-env = jupyterEnv;
-        packages.default = pkgs.callPackage jupyterRunner {};
+        packages = {
+          java-kernel = javaKernel;
+          jupyter-env = jupyterEnv;
+          default = pkgs.callPackage jupyterRunner {};
+        };
         devShells.default = with pkgs;
           mkShell {
             buildInputs = [
               bashInteractive
               packages.jupyter-env
-              jdk
             ];
           };
       }
