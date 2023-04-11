@@ -4,8 +4,9 @@
   jdk,
   ...
 }:
-python.pkgs.buildPythonPackage {
-  name = "java-kernel";
+python.pkgs.buildPythonPackage rec {
+  pname = "java-kernel";
+  version = "1.3.0";
   preBuild = ''
     cat > setup.py <<-EOF
     from setuptools import setup
@@ -20,7 +21,7 @@ python.pkgs.buildPythonPackage {
     EOF
   '';
   src = fetchzip {
-    url = "https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip";
+    url = "https://github.com/SpencerPark/IJava/releases/download/v${version}/ijava-${version}.zip";
     sha256 = "sha256-duuJC5iUz1jj1xshHjhEoa8lb5YmPjOMz42naFrGGCU=";
     stripRoot = false;
   };
