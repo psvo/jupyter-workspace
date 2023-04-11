@@ -17,13 +17,16 @@
           inherit python;
           inherit jdk;
         };
+        bashKernel = python.pkgs.bash_kernel.override {
+          python = python.withPackages (ps: [ps.bash_kernel]);
+        };
         jupyterEnv = python.withPackages (ps:
           with ps; [
             jupyter
             risePkg
             ipykernel
             javaKernel
-            #bash_kernel
+            bashKernel
           ]);
         jupyterRunner = pkgs.writeShellApplication {
           name = "jupyterRunner";
