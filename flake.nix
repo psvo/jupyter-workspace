@@ -47,6 +47,15 @@
         packages.java-kernel = javaKernel;
         packages.jupyter-env = jupyterEnv;
         packages.default = jupyterRunner;
+        devShells.default = with pkgs; mkShell {
+          nativeBuildInputs = [
+            bashInteractive
+          ];
+          buildInputs = [
+            jupyterEnv
+            jdk
+          ];
+        };
         apps.default = flake-utils.lib.mkApp rec {
           drv = jupyterRunner;
         };
