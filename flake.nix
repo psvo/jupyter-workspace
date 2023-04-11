@@ -28,37 +28,35 @@
             javaKernel
             bashKernel
           ]);
-        jupyterRunner = pkgs.writeShellApplication {
-          name = "jupyterRunner";
-          runtimeInputs = [
-            jupyterEnv
-            jdk
-          ];
-          text = ''
-            if [[ $# -eq 0 ]]; then
-              exec jupyter notebook --no-browser
-            else
-              exec jupyter "$@"
-            fi
-          '';
-        };
-      in {
+        jupyterRunner = {
+          pkgs,
+          runtimeInputs ? [],
+          ...
+        }:
+          pkgs.writeShellApplication {
+            name = "jupyterRunner";
+            runtimeInputs = with pkgs; [jupyterEnv] ++ runtimeInputs;
+            text = ''
+              if [[ $# -eq 0 ]]; then
+                exec jupyter notebook --no-browser
+              else
+                exec jupyter "$@"
+              fi
+            '';
+          };
+      in rec {
         formatter = pkgs.alejandra;
         packages.java-kernel = javaKernel;
         packages.jupyter-env = jupyterEnv;
-        packages.default = jupyterRunner;
-        devShells.default = with pkgs; mkShell {
-          nativeBuildInputs = [
-            bashInteractive
-          ];
-          buildInputs = [
-            jupyterEnv
-            jdk
-          ];
-        };
-        apps.default = flake-utils.lib.mkApp rec {
-          drv = jupyterRunner;
-        };
+        packages.default = pkgs.callPackage jupyterRunner {};
+        devShells.default = with pkgs;
+          mkShell {
+            buildInputs = [
+              bashInteractive
+              packages.jupyter-env
+              jdk
+            ];
+          };
       }
     );
 }
