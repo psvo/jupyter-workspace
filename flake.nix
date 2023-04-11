@@ -12,6 +12,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         python = pkgs.python3;
         jdk = pkgs.jdk17;
+        risePkg = pkgs.callPackage ./rise.nix {inherit python;};
         javaKernel = pkgs.callPackage ./java-kernel.nix {
           inherit python;
           inherit jdk;
@@ -19,6 +20,7 @@
         jupyterEnv = python.withPackages (ps:
           with ps; [
             jupyter
+            risePkg
             ipykernel
             javaKernel
             #bash_kernel
