@@ -14,7 +14,6 @@ python.pkgs.buildPythonPackage rec {
     stripRoot = false;
   };
 
-  buildInputs = [jdk];
   nativeBuildInputs = [python.pkgs.notebook];
 
   prePatch = ''
