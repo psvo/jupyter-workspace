@@ -10,7 +10,6 @@
     flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
-
         python = pkgs.python3;
         jdk = pkgs.jdk17_headless;
       in rec {
