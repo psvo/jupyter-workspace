@@ -32,7 +32,7 @@
           jupyter-runner = pkgs.callPackage ./pkgs/runner.nix {
             inherit python;
             env = {
-              TEST = 1;
+              IN_JUPYTER_ENV = 1;
             };
             extraPkgs = with packages; [
               jdk
