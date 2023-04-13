@@ -1,4 +1,5 @@
 *.ipynb
 *.py
-/result
 /.direnv
+/outputs
+/result
